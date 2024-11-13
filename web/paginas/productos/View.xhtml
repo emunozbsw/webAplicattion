@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+  <h:head>
+    <title>Vista de Producto</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <style>
+        .table th, .table td {
+            vertical-align: middle;
+            padding: 0.75rem;
+        }
+        .table .font-weight-bold {
+            color: #333;
+        }
+        .btn-interactive {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .btn-interactive:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .card {
+            border: none;
+        }
+    </style>
+</h:head>
+<h:body>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewProductosTitle}"/>
+        </ui:define>
+
+        <ui:define name="body">
+            <div class="container mt-4">
+                <!-- Panel de Mensajes -->
+                <h:panelGroup id="messagePanel" layout="block" class="mb-3">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+
+                <!-- Formulario para Visualización del Producto -->
+                <h:form>
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white text-center">
+                            <h5 class="card-title mb-0">Detalles del Producto</h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- Información del Producto en Tabla Estilizada -->
+                            <table class="table table-hover table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row" class="font-weight-bold">#{bundle.ViewProductosLabel_id}</th>
+                                        <td>#{productosController.selected.id}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="font-weight-bold">#{bundle.ViewProductosLabel_nombre}</th>
+                                        <td>#{productosController.selected.nombre}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="font-weight-bold">#{bundle.ViewProductosLabel_descripcion}</th>
+                                        <td>#{productosController.selected.descripcion}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="font-weight-bold">#{bundle.ViewProductosLabel_precio}</th>
+                                        <td>#{productosController.selected.precio}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" class="font-weight-bold">#{bundle.ViewProductosLabel_cantidad}</th>
+                                        <td>#{productosController.selected.cantidad}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Acciones -->
+                        <div class="card-footer bg-light">
+                            <div class="d-flex justify-content-around">
+                                <h:commandLink action="#{productosController.destroyAndView}" value="#{bundle.ViewProductosDestroyLink}" styleClass="btn btn-danger btn-sm btn-interactive"/>
+                                <h:link outcome="Edit" value="#{bundle.ViewProductosEditLink}" styleClass="btn btn-warning btn-sm btn-interactive"/>
+                                <h:commandLink action="#{productosController.prepareCreate}" value="#{bundle.ViewProductosCreateLink}" styleClass="btn btn-primary btn-sm btn-interactive"/>
+                                <h:commandLink action="#{productosController.prepareList}" value="#{bundle.ViewProductosShowAllLink}" styleClass="btn btn-info btn-sm btn-interactive"/>
+                                <h:link outcome="/index" value="#{bundle.ViewProductosIndexLink}" styleClass="btn btn-secondary btn-sm btn-interactive"/>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

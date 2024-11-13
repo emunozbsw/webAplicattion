@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+   <h:head>
+    <title>Editar Producto</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <style>
+        .table th, .table td {
+            vertical-align: middle;
+            padding: 0.75rem;
+        }
+        .btn-interactive {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .btn-interactive:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .card {
+            border: none;
+        }
+    </style>
+</h:head>
+<h:body>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditProductosTitle}"/>
+        </ui:define>
+
+        <ui:define name="body">
+            <div class="container mt-4">
+                <!-- Panel de Mensajes -->
+                <h:panelGroup id="messagePanel" layout="block" class="mb-3">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+
+                <!-- Formulario de Edición del Producto -->
+                <h:form>
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="card-title mb-0">Editar Producto</h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- Campos del Formulario -->
+                            <h:panelGrid columns="2" styleClass="table table-borderless">
+                                <h:outputLabel value="#{bundle.EditProductosLabel_id}" for="id" styleClass="font-weight-bold"/>
+                                <h:inputText id="id" value="#{productosController.selected.id}" title="#{bundle.EditProductosTitle_id}" required="true" styleClass="form-control"
+                                             requiredMessage="#{bundle.EditProductosRequiredMessage_id}"/>
+
+                                <h:outputLabel value="#{bundle.EditProductosLabel_nombre}" for="nombre" styleClass="font-weight-bold"/>
+                                <h:inputText id="nombre" value="#{productosController.selected.nombre}" title="#{bundle.EditProductosTitle_nombre}" required="true" styleClass="form-control"
+                                             requiredMessage="#{bundle.EditProductosRequiredMessage_nombre}"/>
+
+                                <h:outputLabel value="#{bundle.EditProductosLabel_descripcion}" for="descripcion" styleClass="font-weight-bold"/>
+                                <h:inputTextarea rows="4" cols="30" id="descripcion" value="#{productosController.selected.descripcion}" title="#{bundle.EditProductosTitle_descripcion}" styleClass="form-control"/>
+
+                                <h:outputLabel value="#{bundle.EditProductosLabel_precio}" for="precio" styleClass="font-weight-bold"/>
+                                <h:inputText id="precio" value="#{productosController.selected.precio}" title="#{bundle.EditProductosTitle_precio}" styleClass="form-control"/>
+
+                                <h:outputLabel value="#{bundle.EditProductosLabel_cantidad}" for="cantidad" styleClass="font-weight-bold"/>
+                                <h:inputText id="cantidad" value="#{productosController.selected.cantidad}" title="#{bundle.EditProductosTitle_cantidad}" styleClass="form-control"/>
+                            </h:panelGrid>
+                        </div>
+
+                        <!-- Botones de Acción -->
+                        <div class="card-footer bg-light">
+                            <div class="d-flex justify-content-between">
+                                <h:commandLink action="#{productosController.update}" value="#{bundle.EditProductosSaveLink}" styleClass="btn btn-success btn-sm btn-interactive"/>
+                                <h:link outcome="View" value="#{bundle.EditProductosViewLink}" styleClass="btn btn-info btn-sm btn-interactive"/>
+                                <h:commandLink action="#{productosController.prepareList}" value="#{bundle.EditProductosShowAllLink}" immediate="true" styleClass="btn btn-secondary btn-sm btn-interactive"/>
+                                <h:link outcome="/index" value="#{bundle.EditProductosIndexLink}" styleClass="btn btn-light btn-sm btn-interactive"/>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
